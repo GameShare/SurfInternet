@@ -34,8 +34,8 @@ var enemyData = {
 
     TheMagicSergeant:{chsName:"魔法警卫",life:230,attack:450,guard:100,gold:100,src:"Monster08-01_1_1.png",offsetY:0},
 
-    Zombie:{chsName:"兽人",life:260,attack:85,guard:5,gold:18,src:"Monster09-01_1_1.png",offsetY:0},
-    ZombieKnight:{chsName:"兽人武士",life:320,attack:120,guard:15,gold:30,src:"Monster09-01_2_1.png",offsetY:0},
+    Zombie:{chsName:"兽人",life:260,attack:85,guard:5,gold:18,src:"Monster09-01.png",offsetY:0},
+    ZombieKnight:{chsName:"兽人武士",life:320,attack:120,guard:15,gold:30,src:"Monster09-01.png",offsetY:-32},
 
     Rock:{chsName:"石头人",life:20,attack:100,guard:68,gold:28,src:"Monster10-01_1_1.png",offsetY:0},
 
@@ -52,7 +52,7 @@ var wallData = {
     normal:{src:"Event01-Wall01.png", offsetX:-32 },
     darkNormal:{src:"Event01-Wall01.png", offsetX:-32 },
     darkWall:{src:"", offsetX:0 },
-    iconWall:{src:"Event01-Wall01.png", offsetX:-96 }
+    iconWall:{src:"Event01-Wall01.png", offsetX:-96 },
 }
 
 // 门
@@ -61,6 +61,11 @@ var doorData = {
     blueDoor:{src:"Event01-Door01.png", offsetX:-32, require:"blueKey"},
     redDoor:{src:"Event01-Door01.png", offsetX:-64, require:"redKey"},
     lockedDoor:{src:"Event01-Door01.png", offsetX:-96, }
+}
+
+// 熔岩
+var lavaData = {
+    fireLava:{src:"Event01-Lava01.png", offsetY:0}
 }
 
 // 物品
@@ -110,17 +115,16 @@ var shieldData = {
 }
 
 // type:对话类型   1代表普通对话（包含事件对话），2代表有交易的对话，若有event，则代表对话后有事件发生
+// 150507 发生更改,不再通过 判断对话事件交给了主js, 此处仅用于保存对话内容
 var sayingData = {
     wiserMan3:{
         words:["孩子，这里有一本九阴真经，你要吗","好啊好啊","你真的要么？","好啊好啊好啊好啊","然而我没有，所以你得不到啊哈哈哈！！（注：怪物手册功能尚未实装）"]
     },
     faceBossAt3F:{
-        words:["魔王：我是魔王","勇者：哦，你好魔王","魔王：死ね","勇者：啊！！！！！"],
-        event:'talkWithNPC("firstWithThiefAt2F");currentFloor = 2;player.x = 7;player.y = 2;player.life = 400;drawFloor();showData();'
+        words:["魔王：我是魔王","勇者：哦，你好魔王","魔王：死ね","勇者：啊！！！！！"]
     },
     firstWithThiefAt2F:{
-        words:["喂！","喂！醒醒","快去探险吧，我先走啦"],
-        event:'openDoorAndWall(2,6,1);map[2][6][2].t = "none";drawFloor();'
+        words:["喂！","喂！醒醒","快去探险吧，我先走啦"]
     }
 }
 
@@ -351,5 +355,136 @@ var map = [
         /*10*/[/*0*/{t:"stairs",f:"upStairs"},/*1*/{t:"none",f:"none"},/*2*/{t:"door",f:"blueDoor"},/*3*/{t:"none",f:"none"},/*4*/{t:"none",f:"none"},/*5*/{t:"door",f:"yellowDoor"},/*6*/{t:"none",f:"none"},/*7*/{t:"door",f:"yellowDoor"},/*8*/{t:"enemy",f:"Priest"},/*9*/{t:"none",f:"none"},/*10*/{t:"goods",f:"redLife"}],
 
         /*11*/{downX:1,downY:5,upX:10,upY:1}
+    ],
+    // 10
+    [
+        /*0*/[/*0*/{t:"none",f:"none"},/*1*/{t:"none",f:"none"},/*2*/{t:"none",f:"none"},/*3*/{t:"none",f:"none"},/*4*/{t:"none",f:"none"},/*5*/{t:"none",f:"none"},/*6*/{t:"none",f:"none"},/*7*/{t:"none",f:"none"},/*8*/{t:"none",f:"none"},/*9*/{t:"none",f:"none"},/*10*/{t:"none",f:"none"}],
+
+        /*1*/[/*0*/{t:"wall",f:"normal"},/*1*/{t:"wall",f:"normal"},/*2*/{t:"wall",f:"normal"},/*3*/{t:"wall",f:"normal"},/*4*/{t:"none",f:"none"},/*5*/{t:"none",f:"none"},/*6*/{t:"none",f:"none"},/*7*/{t:"wall",f:"normal"},/*8*/{t:"wall",f:"normal"},/*9*/{t:"wall",f:"normal"},/*10*/{t:"wall",f:"normal"}],
+
+        /*2*/[/*0*/{t:"enemy",f:"SkeletonC"},/*1*/{t:"enemy",f:"SkeletonC"},/*2*/{t:"enemy",f:"SkeletonC"},/*3*/{t:"wall",f:"normal"},/*4*/{t:"wall",f:"normal"},/*5*/{t:"none",f:"none"},/*6*/{t:"wall",f:"normal"},/*7*/{t:"wall",f:"normal"},/*8*/{t:"enemy",f:"SkeletonC"},/*9*/{t:"enemy",f:"SkeletonC"},/*10*/{t:"enemy",f:"SkeletonC"}],
+
+        /*3*/[/*0*/{t:"none",f:"none"},/*1*/{t:"enemy",f:"SkeletonB"},/*2*/{t:"none",f:"none"},/*3*/{t:"door",f:"lockedDoor"},/*4*/{t:"none",f:"none"},/*5*/{t:"enemy",f:"SkeletonA"},/*6*/{t:"none",f:"none"},/*7*/{t:"door",f:"lockedDoor"},/*8*/{t:"none",f:"none"},/*9*/{t:"enemy",f:"SkeletonB"},/*10*/{t:"none",f:"none"}],
+
+        /*4*/[/*0*/{t:"wall",f:"normal"},/*1*/{t:"wall",f:"normal"},/*2*/{t:"wall",f:"normal"},/*3*/{t:"wall",f:"normal"},/*4*/{t:"none",f:"none"},/*5*/{t:"none",f:"none"},/*6*/{t:"none",f:"none"},/*7*/{t:"wall",f:"normal"},/*8*/{t:"wall",f:"normal"},/*9*/{t:"wall",f:"normal"},/*10*/{t:"wall",f:"normal"}],
+
+        /*5*/[/*0*/{t:"enemy",f:"SkeletonC"},/*1*/{t:"goods",f:"blueGem"},/*2*/{t:"enemy",f:"SkeletonC"},/*3*/{t:"wall",f:"normal"},/*4*/{t:"wall",f:"normal"},/*5*/{t:"none",f:"none"},/*6*/{t:"wall",f:"normal"},/*7*/{t:"wall",f:"normal"},/*8*/{t:"enemy",f:"SkeletonC"},/*9*/{t:"goods",f:"redGem"},/*10*/{t:"enemy",f:"SkeletonC"}],
+
+        /*6*/[/*0*/{t:"none",f:"none"},/*1*/{t:"enemy",f:"SkeletonB"},/*2*/{t:"none",f:"none"},/*3*/{t:"wall",f:"normal"},/*4*/{t:"wall",f:"normal"},/*5*/{t:"none",f:"none"},/*6*/{t:"wall",f:"normal"},/*7*/{t:"wall",f:"normal"},/*8*/{t:"none",f:"none"},/*9*/{t:"enemy",f:"SkeletonB"},/*10*/{t:"none",f:"none"}],
+
+        /*7*/[/*0*/{t:"none",f:"none"},/*1*/{t:"none",f:"none"},/*2*/{t:"none",f:"none"},/*3*/{t:"wall",f:"normal"},/*4*/{t:"wall",f:"normal"},/*5*/{t:"none",f:"none"},/*6*/{t:"wall",f:"normal"},/*7*/{t:"wall",f:"normal"},/*8*/{t:"none",f:"none"},/*9*/{t:"none",f:"none"},/*10*/{t:"none",f:"none"}],
+
+        /*8*/[/*0*/{t:"door",f:"yellowDoor"},/*1*/{t:"wall",f:"normal"},/*2*/{t:"door",f:"yellowDoor"},/*3*/{t:"wall",f:"normal"},/*4*/{t:"wall",f:"normal"},/*5*/{t:"door",f:"redDoor"},/*6*/{t:"wall",f:"normal"},/*7*/{t:"wall",f:"normal"},/*8*/{t:"door",f:"yellowDoor"},/*9*/{t:"wall",f:"normal"},/*10*/{t:"door",f:"yellowDoor"}],
+
+        /*9*/[/*0*/{t:"none",f:"none"},/*1*/{t:"wall",f:"normal"},/*2*/{t:"none",f:"none"},/*3*/{t:"wall",f:"normal"},/*4*/{t:"none",f:"none"},/*5*/{t:"none",f:"none"},/*6*/{t:"none",f:"none"},/*7*/{t:"wall",f:"normal"},/*8*/{t:"none",f:"none"},/*9*/{t:"wall",f:"normal"},/*10*/{t:"none",f:"none"}],
+
+        /*10*/[/*0*/{t:"stairs",f:"downStairs"},/*1*/{t:"wall",f:"normal"},/*2*/{t:"none",f:"none"},/*3*/{t:"enemy",f:"Priest"},/*4*/{t:"none",f:"none"},/*5*/{t:"none",f:"none"},/*6*/{t:"none",f:"none"},/*7*/{t:"enemy",f:"Priest"},/*8*/{t:"none",f:"none"},/*9*/{t:"wall",f:"normal"},/*10*/{t:"goods",f:"blueLife"}],
+
+        /*11*/{downX:10,downY:0,upX:0,upY:0}
+    ],
+    /*11*/
+    [
+        /*0*/[/*0*/{t:"none",f:"none"},/*1*/{t:"none",f:"none"},/*2*/{t:"none",f:"none"},/*3*/{t:"wall",f:"normal"},/*4*/{t:"goods",f:"redGem"},/*5*/{t:"none",f:"none"},/*6*/{t:"door",f:"yellowDoor"},/*7*/{t:"none",f:"none"},/*8*/{t:"wall",f:"normal"},/*9*/{t:"goods",f:"redLife"},/*10*/{t:"goods",f:"yellowKey"}],
+
+        /*1*/[/*0*/{t:"none",f:"none"},/*1*/{t:"shield",f:"shield20"},/*2*/{t:"none",f:"none"},/*3*/{t:"wall",f:"normal"},/*4*/{t:"none",f:"none"},/*5*/{t:"enemy",f:"Bat"},/*6*/{t:"wall",f:"normal"},/*7*/{t:"enemy",f:"Zombie"},/*8*/{t:"wall",f:"normal"},/*9*/{t:"none",f:"none"},/*10*/{t:"none",f:"none"}],
+
+        /*2*/[/*0*/{t:"none",f:"none"},/*1*/{t:"none",f:"none"},/*2*/{t:"none",f:"none"},/*3*/{t:"wall",f:"normal"},/*4*/{t:"door",f:"yellowDoor"},/*5*/{t:"wall",f:"normal"},/*6*/{t:"wall",f:"normal"},/*7*/{t:"none",f:"none"},/*8*/{t:"door",f:"yellowDoor"},/*9*/{t:"none",f:"none"},/*10*/{t:"none",f:"none"}],
+
+        /*3*/[/*0*/{t:"wall",f:"normal"},/*1*/{t:"door",f:"lockedDoor"},/*2*/{t:"wall",f:"normal"},/*3*/{t:"wall",f:"normal"},/*4*/{t:"none",f:"none"},/*5*/{t:"enemy",f:"BigBat"},/*6*/{t:"wall",f:"normal"},/*7*/{t:"wall",f:"normal"},/*8*/{t:"wall",f:"normal"},/*9*/{t:"wall",f:"normal"},/*10*/{t:"none",f:"none"}],
+
+        /*4*/[/*0*/{t:"enemy",f:"SuperionPriest"},/*1*/{t:"none",f:"none"},/*2*/{t:"enemy",f:"SuperionPriest"},/*3*/{t:"wall",f:"normal"},/*4*/{t:"enemy",f:"Zombie"},/*5*/{t:"none",f:"none"},/*6*/{t:"door",f:"yellowDoor"},/*7*/{t:"enemy",f:"SuperionPriest"},/*8*/{t:"none",f:"none"},/*9*/{t:"wall",f:"normal"},/*10*/{t:"none",f:"none"}],
+
+        /*5*/[/*0*/{t:"none",f:"none"},/*1*/{t:"none",f:"none"},/*2*/{t:"none",f:"none"},/*3*/{t:"wall",f:"normal"},/*4*/{t:"wall",f:"normal"},/*5*/{t:"wall",f:"normal"},/*6*/{t:"wall",f:"normal"},/*7*/{t:"none",f:"none"},/*8*/{t:"goods",f:"redLife"},/*9*/{t:"wall",f:"normal"},/*10*/{t:"none",f:"none"}],
+
+        /*6*/[/*0*/{t:"goods",f:"blueLife"},/*1*/{t:"none",f:"none"},/*2*/{t:"none",f:"none"},/*3*/{t:"enemy",f:"BigBat"},/*4*/{t:"none",f:"none"},/*5*/{t:"none",f:"none"},/*6*/{t:"door",f:"yellowDoor"},/*7*/{t:"enemy",f:"BigSlime"},/*8*/{t:"none",f:"none"},/*9*/{t:"wall",f:"normal"},/*10*/{t:"none",f:"none"}],
+
+        /*7*/[/*0*/{t:"wall",f:"normal"},/*1*/{t:"door",f:"blueDoor"},/*2*/{t:"wall",f:"normal"},/*3*/{t:"wall",f:"normal"},/*4*/{t:"wall",f:"normal"},/*5*/{t:"wall",f:"normal"},/*6*/{t:"wall",f:"normal"},/*7*/{t:"wall",f:"normal"},/*8*/{t:"wall",f:"normal"},/*9*/{t:"wall",f:"normal"},/*10*/{t:"enemy",f:"BigBat"}],
+
+        /*8*/[/*0*/{t:"none",f:"none"},/*1*/{t:"enemy",f:"BigBat"},/*2*/{t:"none",f:"none"},/*3*/{t:"enemy",f:"BigSlime"},/*4*/{t:"door",f:"yellowDoor"},/*5*/{t:"none",f:"none"},/*6*/{t:"none",f:"none"},/*7*/{t:"none",f:"none"},/*8*/{t:"none",f:"none"},/*9*/{t:"enemy",f:"Bat"},/*10*/{t:"none",f:"none"}],
+
+        /*9*/[/*0*/{t:"goods",f:"yellowKey"},/*1*/{t:"none",f:"none"},/*2*/{t:"none",f:"none"},/*3*/{t:"none",f:"none"},/*4*/{t:"wall",f:"normal"},/*5*/{t:"none",f:"none"},/*6*/{t:"wall",f:"normal"},/*7*/{t:"wall",f:"normal"},/*8*/{t:"door",f:"yellowDoor"},/*9*/{t:"wall",f:"normal"},/*10*/{t:"none",f:"none"}],
+
+        /*10*/[/*0*/{t:"goods",f:"yellowKey"},/*1*/{t:"goods",f:"yellowKey"},/*2*/{t:"goods",f:"yellowKey"},/*3*/{t:"goods",f:"yellowKey"},/*4*/{t:"wall",f:"normal"},/*5*/{t:"stairs",f:"downStairs"},/*6*/{t:"wall",f:"normal"},/*7*/{t:"goods",f:"blueLife"},/*8*/{t:"enemy",f:"BigBat"},/*9*/{t:"wall",f:"normal"},/*10*/{t:"stairs",f:"upStairs"}],
+
+        /*11*/{downX:10,downY:5,upX:10,upY:10}
+    ],
+    /*12*/
+    [
+        /*0*/[/*0*/{t:"NPC",f:"dealer"},/*1*/{t:"wall",f:"normal"},/*2*/{t:"none",f:"none"},/*3*/{t:"wall",f:"normal"},/*4*/{t:"goods",f:"yellowKey"},/*5*/{t:"goods",f:"redGem"},/*6*/{t:"goods",f:"yellowKey"},/*7*/{t:"wall",f:"normal"},/*8*/{t:"none",f:"none"},/*9*/{t:"wall",f:"normal"},/*10*/{t:"wall",f:"normal"}],
+
+        /*1*/[/*0*/{t:"wall",f:"normal"},/*1*/{t:"wall",f:"normal"},/*2*/{t:"enemy",f:"BigBat"},/*3*/{t:"wall",f:"normal"},/*4*/{t:"none",f:"none"},/*5*/{t:"wall",f:"normal"},/*6*/{t:"none",f:"none"},/*7*/{t:"wall",f:"normal"},/*8*/{t:"none",f:"none"},/*9*/{t:"wall",f:"normal"},/*10*/{t:"wall",f:"normal"}],
+
+        /*2*/[/*0*/{t:"none",f:"none"},/*1*/{t:"none",f:"none"},/*2*/{t:"none",f:"none"},/*3*/{t:"wall",f:"normal"},/*4*/{t:"enemy",f:"SuperionPriest"},/*5*/{t:"none",f:"none"},/*6*/{t:"enemy",f:"SuperionPriest"},/*7*/{t:"wall",f:"normal"},/*8*/{t:"none",f:"none"},/*9*/{t:"enemy",f:"Zombie"},/*10*/{t:"none",f:"none"}],
+
+        /*3*/[/*0*/{t:"door",f:"yellowDoor"},/*1*/{t:"wall",f:"normal"},/*2*/{t:"wall",f:"normal"},/*3*/{t:"wall",f:"normal"},/*4*/{t:"wall",f:"normal"},/*5*/{t:"door",f:"yellowDoor"},/*6*/{t:"wall",f:"normal"},/*7*/{t:"wall",f:"normal"},/*8*/{t:"wall",f:"normal"},/*9*/{t:"wall",f:"normal"},/*10*/{t:"none",f:"none"}],
+
+        /*4*/[/*0*/{t:"none",f:"none"},/*1*/{t:"enemy",f:"SuperionPriest"},/*2*/{t:"none",f:"none"},/*3*/{t:"door",f:"yellowDoor"},/*4*/{t:"none",f:"none"},/*5*/{t:"enemy",f:"Zombie"},/*6*/{t:"none",f:"none"},/*7*/{t:"wall",f:"normal"},/*8*/{t:"goods",f:"redLife"},/*9*/{t:"none",f:"none"},/*10*/{t:"enemy",f:"BigBat"}],
+
+        /*5*/[/*0*/{t:"wall",f:"normal"},/*1*/{t:"wall",f:"normal"},/*2*/{t:"wall",f:"normal"},/*3*/{t:"wall",f:"normal"},/*4*/{t:"none",f:"none"},/*5*/{t:"none",f:"none"},/*6*/{t:"enemy",f:"SuperionPriest"},/*7*/{t:"door",f:"yellowDoor"},/*8*/{t:"none",f:"none"},/*9*/{t:"goods",f:"blueGem"},/*10*/{t:"none",f:"none"}],
+
+        /*6*/[/*0*/{t:"goods",f:"yellowKey"},/*1*/{t:"goods",f:"yellowKey"},/*2*/{t:"none",f:"none"},/*3*/{t:"wall",f:"normal"},/*4*/{t:"none",f:"none"},/*5*/{t:"goods",f:"blueLife"},/*6*/{t:"none",f:"none"},/*7*/{t:"wall",f:"normal"},/*8*/{t:"goods",f:"yellowKey"},/*9*/{t:"none",f:"none"},/*10*/{t:"enemy",f:"BigSlime"}],
+
+        /*7*/[/*0*/{t:"goods",f:"yellowKey"},/*1*/{t:"goods",f:"blueKey"},/*2*/{t:"none",f:"none"},/*3*/{t:"wall",f:"normal"},/*4*/{t:"wall",f:"normal"},/*5*/{t:"wall",f:"normal"},/*6*/{t:"wall",f:"normal"},/*7*/{t:"wall",f:"normal"},/*8*/{t:"door",f:"blueDoor"},/*9*/{t:"wall",f:"normal"},/*10*/{t:"door",f:"yellowDoor"}],
+
+        /*8*/[/*0*/{t:"none",f:"none"},/*1*/{t:"none",f:"none"},/*2*/{t:"enemy",f:"Zombie"},/*3*/{t:"wall",f:"normal"},/*4*/{t:"bigDealer",f:"bigDealerL"},/*5*/{t:"bigDealer",f:"bigDealerM"},/*6*/{t:"bigDealer",f:"bigDealerR"},/*7*/{t:"wall",f:"normal"},/*8*/{t:"enemy",f:"BigSlime"},/*9*/{t:"none",f:"none"},/*10*/{t:"enemy",f:"Zombie"}],
+
+        /*9*/[/*0*/{t:"wall",f:"normal"},/*1*/{t:"wall",f:"normal"},/*2*/{t:"door",f:"yellowDoor"},/*3*/{t:"wall",f:"normal"},/*4*/{t:"goods",f:"redLife"},/*5*/{t:"none",f:"none"},/*6*/{t:"goods",f:"redLife"},/*7*/{t:"wall",f:"normal"},/*8*/{t:"wall",f:"normal"},/*9*/{t:"none",f:"none"},/*10*/{t:"wall",f:"normal"}],
+
+        /*10*/[/*0*/{t:"stairs",f:"upStairs"},/*1*/{t:"none",f:"none"},/*2*/{t:"none",f:"none"},/*3*/{t:"enemy",f:"Bat"},/*4*/{t:"none",f:"none"},/*5*/{t:"none",f:"none"},/*6*/{t:"none",f:"none"},/*7*/{t:"enemy",f:"Bat"},/*8*/{t:"none",f:"none"},/*9*/{t:"none",f:"none"},/*10*/{t:"stairs",f:"downStairs"}],
+
+        /*11*/{downX:10,downY:10,upX:10,upY:0}
+    ],
+    /*13*/
+    [
+        /*0*/[/*0*/{t:"lava",f:"fireLava"},/*1*/{t:"lava",f:"fireLava"},/*2*/{t:"lava",f:"fireLava"},/*3*/{t:"lava",f:"fireLava"},/*4*/{t:"lava",f:"fireLava"},/*5*/{t:"lava",f:"fireLava"},/*6*/{t:"lava",f:"fireLava"},/*7*/{t:"lava",f:"fireLava"},/*8*/{t:"lava",f:"fireLava"},/*9*/{t:"lava",f:"fireLava"},/*10*/{t:"lava",f:"fireLava"}],
+
+        /*1*/[/*0*/{t:"lava",f:"fireLava"},/*1*/{t:"lava",f:"fireLava"},/*2*/{t:"lava",f:"fireLava"},/*3*/{t:"lava",f:"fireLava"},/*4*/{t:"lava",f:"fireLava"},/*5*/{t:"lava",f:"fireLava"},/*6*/{t:"lava",f:"fireLava"},/*7*/{t:"lava",f:"fireLava"},/*8*/{t:"lava",f:"fireLava"},/*9*/{t:"lava",f:"fireLava"},/*10*/{t:"lava",f:"fireLava"}],
+
+        /*2*/[/*0*/{t:"lava",f:"fireLava"},/*1*/{t:"lava",f:"fireLava"},/*2*/{t:"lava",f:"fireLava"},/*3*/{t:"lava",f:"fireLava"},/*4*/{t:"wall",f:"normal"},/*5*/{t:"wall",f:"normal"},/*6*/{t:"wall",f:"normal"},/*7*/{t:"lava",f:"fireLava"},/*8*/{t:"lava",f:"fireLava"},/*9*/{t:"lava",f:"fireLava"},/*10*/{t:"lava",f:"fireLava"}],
+
+        /*3*/[/*0*/{t:"lava",f:"fireLava"},/*1*/{t:"lava",f:"fireLava"},/*2*/{t:"lava",f:"fireLava"},/*3*/{t:"wall",f:"normal"},/*4*/{t:"wall",f:"normal"},/*5*/{t:"wall",f:"normal"},/*6*/{t:"wall",f:"normal"},/*7*/{t:"wall",f:"normal"},/*8*/{t:"lava",f:"fireLava"},/*9*/{t:"lava",f:"fireLava"},/*10*/{t:"lava",f:"fireLava"}],
+
+        /*4*/[/*0*/{t:"lava",f:"fireLava"},/*1*/{t:"lava",f:"fireLava"},/*2*/{t:"lava",f:"fireLava"},/*3*/{t:"wall",f:"normal"},/*4*/{t:"wall",f:"normal"},/*5*/{t:"sword",f:"sword100"},/*6*/{t:"wall",f:"normal"},/*7*/{t:"wall",f:"normal"},/*8*/{t:"lava",f:"fireLava"},/*9*/{t:"lava",f:"fireLava"},/*10*/{t:"lava",f:"fireLava"}],
+
+        /*5*/[/*0*/{t:"lava",f:"fireLava"},/*1*/{t:"lava",f:"fireLava"},/*2*/{t:"lava",f:"fireLava"},/*3*/{t:"wall",f:"normal"},/*4*/{t:"wall",f:"normal"},/*5*/{t:"lava",f:"fireLava"},/*6*/{t:"wall",f:"normal"},/*7*/{t:"wall",f:"normal"},/*8*/{t:"lava",f:"fireLava"},/*9*/{t:"lava",f:"fireLava"},/*10*/{t:"lava",f:"fireLava"}],
+
+        /*6*/[/*0*/{t:"lava",f:"fireLava"},/*1*/{t:"lava",f:"fireLava"},/*2*/{t:"lava",f:"fireLava"},/*3*/{t:"lava",f:"fireLava"},/*4*/{t:"wall",f:"normal"},/*5*/{t:"lava",f:"fireLava"},/*6*/{t:"wall",f:"normal"},/*7*/{t:"lava",f:"fireLava"},/*8*/{t:"lava",f:"fireLava"},/*9*/{t:"lava",f:"fireLava"},/*10*/{t:"lava",f:"fireLava"}],
+
+        /*7*/[/*0*/{t:"lava",f:"fireLava"},/*1*/{t:"lava",f:"fireLava"},/*2*/{t:"lava",f:"fireLava"},/*3*/{t:"lava",f:"fireLava"},/*4*/{t:"lava",f:"fireLava"},/*5*/{t:"lava",f:"fireLava"},/*6*/{t:"lava",f:"fireLava"},/*7*/{t:"lava",f:"fireLava"},/*8*/{t:"lava",f:"fireLava"},/*9*/{t:"lava",f:"fireLava"},/*10*/{t:"lava",f:"fireLava"}],
+
+        /*8*/[/*0*/{t:"lava",f:"fireLava"},/*1*/{t:"lava",f:"fireLava"},/*2*/{t:"lava",f:"fireLava"},/*3*/{t:"lava",f:"fireLava"},/*4*/{t:"lava",f:"fireLava"},/*5*/{t:"lava",f:"fireLava"},/*6*/{t:"lava",f:"fireLava"},/*7*/{t:"lava",f:"fireLava"},/*8*/{t:"lava",f:"fireLava"},/*9*/{t:"lava",f:"fireLava"},/*10*/{t:"lava",f:"fireLava"}],
+
+        /*9*/[/*0*/{t:"wall",f:"normal"},/*1*/{t:"wall",f:"normal"},/*2*/{t:"wall",f:"normal"},/*3*/{t:"wall",f:"normal"},/*4*/{t:"wall",f:"normal"},/*5*/{t:"door",f:"yellowDoor"},/*6*/{t:"wall",f:"normal"},/*7*/{t:"wall",f:"normal"},/*8*/{t:"wall",f:"normal"},/*9*/{t:"wall",f:"normal"},/*10*/{t:"wall",f:"normal"}],
+
+        /*10*/[/*0*/{t:"stairs",f:"downStairs"},/*1*/{t:"none",f:"none"},/*2*/{t:"none",f:"none"},/*3*/{t:"none",f:"none"},/*4*/{t:"none",f:"none"},/*5*/{t:"none",f:"none"},/*6*/{t:"none",f:"none"},/*7*/{t:"none",f:"none"},/*8*/{t:"none",f:"none"},/*9*/{t:"none",f:"none"},/*10*/{t:"stairs",f:"upStairs"}],
+
+        /*11*/{downX:10,downY:0,upX:10,upY:10}
+    ],
+    /*哈*/
+    [
+        /*0*/[/*0*/{t:"none",f:"none"},/*1*/{t:"none",f:"none"},/*2*/{t:"none",f:"none"},/*3*/{t:"none",f:"none"},/*4*/{t:"none",f:"none"},/*5*/{t:"none",f:"none"},/*6*/{t:"none",f:"none"},/*7*/{t:"wall",f:"normal"},/*8*/{t:"none",f:"none"},/*9*/{t:"none",f:"none"},/*10*/{t:"none",f:"none"}],
+
+        /*1*/[/*0*/{t:"none",f:"none"},/*1*/{t:"none",f:"none"},/*2*/{t:"none",f:"none"},/*3*/{t:"none",f:"none"},/*4*/{t:"none",f:"none"},/*5*/{t:"none",f:"none"},/*6*/{t:"wall",f:"normal"},/*7*/{t:"wall",f:"normal"},/*8*/{t:"wall",f:"normal"},/*9*/{t:"none",f:"none"},/*10*/{t:"none",f:"none"}],
+
+        /*2*/[/*0*/{t:"none",f:"none"},/*1*/{t:"none",f:"none"},/*2*/{t:"none",f:"none"},/*3*/{t:"none",f:"none"},/*4*/{t:"none",f:"none"},/*5*/{t:"wall",f:"normal"},/*6*/{t:"wall",f:"normal"},/*7*/{t:"none",f:"none"},/*8*/{t:"wall",f:"normal"},/*9*/{t:"wall",f:"normal"},/*10*/{t:"none",f:"none"}],
+
+        /*3*/[/*0*/{t:"none",f:"none"},/*1*/{t:"none",f:"none"},/*2*/{t:"none",f:"none"},/*3*/{t:"none",f:"none"},/*4*/{t:"wall",f:"normal"},/*5*/{t:"wall",f:"normal"},/*6*/{t:"none",f:"none"},/*7*/{t:"none",f:"none"},/*8*/{t:"none",f:"none"},/*9*/{t:"wall",f:"normal"},/*10*/{t:"wall",f:"normal"}],
+
+        /*4*/[/*0*/{t:"none",f:"none"},/*1*/{t:"wall",f:"normal"},/*2*/{t:"wall",f:"normal"},/*3*/{t:"wall",f:"normal"},/*4*/{t:"wall",f:"normal"},/*5*/{t:"none",f:"none"},/*6*/{t:"none",f:"none"},/*7*/{t:"none",f:"none"},/*8*/{t:"none",f:"none"},/*9*/{t:"none",f:"none"},/*10*/{t:"wall",f:"normal"}],
+
+        /*5*/[/*0*/{t:"none",f:"none"},/*1*/{t:"wall",f:"normal"},/*2*/{t:"none",f:"none"},/*3*/{t:"wall",f:"normal"},/*4*/{t:"none",f:"none"},/*5*/{t:"none",f:"none"},/*6*/{t:"wall",f:"normal"},/*7*/{t:"wall",f:"normal"},/*8*/{t:"wall",f:"normal"},/*9*/{t:"none",f:"none"},/*10*/{t:"none",f:"none"}],
+
+        /*6*/[/*0*/{t:"none",f:"none"},/*1*/{t:"wall",f:"normal"},/*2*/{t:"none",f:"none"},/*3*/{t:"wall",f:"normal"},/*4*/{t:"none",f:"none"},/*5*/{t:"none",f:"none"},/*6*/{t:"none",f:"none"},/*7*/{t:"none",f:"none"},/*8*/{t:"none",f:"none"},/*9*/{t:"none",f:"none"},/*10*/{t:"none",f:"none"}],
+
+        /*7*/[/*0*/{t:"none",f:"none"},/*1*/{t:"wall",f:"normal"},/*2*/{t:"wall",f:"normal"},/*3*/{t:"wall",f:"normal"},/*4*/{t:"none",f:"none"},/*5*/{t:"wall",f:"normal"},/*6*/{t:"wall",f:"normal"},/*7*/{t:"wall",f:"normal"},/*8*/{t:"wall",f:"normal"},/*9*/{t:"wall",f:"normal"},/*10*/{t:"none",f:"none"}],
+
+        /*8*/[/*0*/{t:"none",f:"none"},/*1*/{t:"none",f:"none"},/*2*/{t:"none",f:"none"},/*3*/{t:"none",f:"none"},/*4*/{t:"none",f:"none"},/*5*/{t:"wall",f:"normal"},/*6*/{t:"none",f:"none"},/*7*/{t:"none",f:"none"},/*8*/{t:"none",f:"none"},/*9*/{t:"wall",f:"normal"},/*10*/{t:"none",f:"none"}],
+
+        /*9*/[/*0*/{t:"none",f:"none"},/*1*/{t:"none",f:"none"},/*2*/{t:"none",f:"none"},/*3*/{t:"none",f:"none"},/*4*/{t:"none",f:"none"},/*5*/{t:"wall",f:"normal"},/*6*/{t:"none",f:"none"},/*7*/{t:"none",f:"none"},/*8*/{t:"none",f:"none"},/*9*/{t:"wall",f:"normal"},/*10*/{t:"none",f:"none"}],
+
+        /*10*/[/*0*/{t:"none",f:"none"},/*1*/{t:"none",f:"none"},/*2*/{t:"none",f:"none"},/*3*/{t:"none",f:"none"},/*4*/{t:"none",f:"none"},/*5*/{t:"wall",f:"normal"},/*6*/{t:"wall",f:"normal"},/*7*/{t:"wall",f:"normal"},/*8*/{t:"wall",f:"normal"},/*9*/{t:"wall",f:"normal"},/*10*/{t:"none",f:"none"}],
+
+        /*11*/{downX:0,downY:0,upX:0,upY:0}
     ]
+
 ]
