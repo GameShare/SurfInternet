@@ -91,7 +91,9 @@ app.use(function(err, req, res, next) {
 });
 
 io.on('connection', function(socket) {
-    console.log('a user connected:' + socket.request.session.username);
+    socket.on('chat message', function(msg) {
+        io.emit('chat message', socket.request.session.username + msg);
+    });
 });
 
 server.listen(port);

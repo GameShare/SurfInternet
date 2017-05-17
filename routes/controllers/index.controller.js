@@ -8,11 +8,13 @@ router.get('/mota', index);
 function chatIO(req, res, next) {
     if (req.session.username) {
         res.render('chat', {
-            title: req.session.username
+            title: req.session.username,
+            islogin: true
         });
     } else {
         res.render('chat', {
-            title: "nologin!"
+            title: "nologin!",
+            islogin: false
         });
     }
 }
